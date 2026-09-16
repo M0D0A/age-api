@@ -1,9 +1,12 @@
 from fastapi import FastAPI, Query, Body, HTTPException
 from datetime import datetime
 from pydantic import BaseModel
+from prometheus_fastapi_instrumentator import Instrumentator
 
 
 app = FastAPI(title="Age Calculator API", version="1.0")
+
+Instrumentator().instrument(app).expose(app)
 
 class AgeRequest(BaseModel):
     birth_date: str
